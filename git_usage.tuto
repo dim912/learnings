@@ -1,0 +1,101 @@
+Git
+--
+
+git init ; 
+git clone https://dim912@bitbucket.org/clsTeam/enterprise.git
+git config --global user.name dim912
+git config --global user.email dim912@gmail.com
+git commit InstallationInfo_20160116;
+git add links.txt
+git push
+
+//git delete all files which are already deleted
+git ls-files --deleted -z | xargs -0 git rm 
+
+
+list all the files tracked by Git
+git ls-tree -r master --name-only
+
+
+git remove locally deleted files from remote repo also
+
+Method 1
+---------
+delte unwanted fiels and folders
+git add -u
+git commit -m 'xxxx''
+git push origin master
+
+Method 2
+----------
+delete unwanted files and folders using
+git rm <> 
+git commit -m 'removed unwanted files'
+git push
+
+git change url
+git remote set-url origin https://dim912@bitbucket.org/clsTeam/cls.git
+
+
+
+Maven installing a dependancy in local repo by hand
+
+mvn install:install-file -Dfile={Path/to/your/ojdbc.jar} -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0.4 -Dpackaging=jar
+
+
+Solve Git Detaced Head
+-------------------------
+This is happen when a older commit is checkedout. So solve this the master should be checked out.
+
+If the changes made on old commit is NOT NEEDED.
+
+git status
+git stash
+git status
+git checkout master
+git pull
+
+
+Notes :
+-------
+git pull does a git fetch followed by a git merge.
+ 
+ 
+If local changes are not needed and everything should be reseted to remote master
+----------------------------------------------------------------------------------
+
+git fetch  #this is to fetch the remote changes to refs/remotes/<remote>/ directory.
+git reset  #hard origin/master
+
+
+how to make source control only for a folder -> (meaning working copy is only a folder)
+---------------------------------------------------------------------------------------
+
+git init
+git config --global user.name dim912
+git config --global user.email dim912@gmail.com
+git config core.sparsecheckout true
+git remote add origin https://bitbucket.org/clsTeam/cls
+echo cls-wiki/* >> .git/info/sparse-checkout
+git fetch
+git checkout master
+
+--git fetch -> get all from remote direcotory but do not check out any branch
+--git clone -> get all from remote and checkout master as the working copy.
+--git pull -> get fetch + git merge(update the working copy)
+
+whitelisted gitignore file(dont commit all and commit only what is mentioned here)
+---------------------------------------------------------------------------------------
+# First, ignore everything
+*
+# Now, whitelist anything that's a directory
+!*/
+# And all the file types you're interested in.
+!*.tuto
+!*.gitignore
+
+
+
+
+
+

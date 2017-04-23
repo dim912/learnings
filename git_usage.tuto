@@ -138,3 +138,28 @@ git push origin master
 
 END
 
+
+Splitting a repository to two
+=================================
+
+git clone https://github.com/USERNAME/REPOSITORY-NAME
+
+git filter-branch --prune-empty --subdirectory-filter FOLDER-NAME-TO-MOVE-TO-NEW-REPO  BRANCH-NAME
+Ex: git filter-branch --prune-empty --subdirectory-filter wiki master
+
+git remote -v
+//now existing remte repo should be listed
+
+change url to new remote repo
+git remote set-url origin https://github.com/USERNAME/NEW-REPOSITORY-NAME.git
+Ex :  git remote set-url origin https://github.com/dim912/learnings.git
+
+git remote -v
+//now new remte repo should be listed
+
+git push -u origin BRANCH-NAME
+
+source : https://help.github.com/articles/splitting-a-subfolder-out-into-a-new-repository/
+
+
+

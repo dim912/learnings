@@ -21,3 +21,15 @@ tar -xvz --file=20161120.tar.gz 20161120/ME/ME1*;
 -x = --extract
 -v = --verbose
 -z = --gzip
+
+addto sudoers list
+
+visudo
+
+
+Yum
+----
+
+list repos
+
+ yum repolist

@@ -1,0 +1,201 @@
+#creates a new user
+adduser docker
+passwd docker
+
+#install utilities
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+
+#add docker yum repo
+sudo yum-config-manager   --add-repo  https://download.docker.com/linux/centos/docker-ce.repo
+
+#enable repo
+sudo yum-config-manager --enable docker-ce-edge
+
+#if wants to disable
+#sudo yum-config-manager --disable docker-ce-edge
+
+#install docker ce
+sudo yum install docker-ce
+
+#add device mapper
+
+sodu vi /etc/docker/daemon.json
+{
+  "storage-driver": "devicemapper"
+}
+
+#start docker
+sudo systemctl start docker
+
+#verify docker is running
+sudo docker run hello-world
+
+ docker --version
+
+ ----------------------------------------------------
+
+
+ Docker concepts
+ ---------------
+
+ Container(standalone) -> Service(scalables) -> Container
+
+concepts
+---------
+
+Runtiems(ex: python) comes on .docker files(executables). => so on need to install them on host matchine.
+
+Docker files defines
+--------------------
+1) what goes to the env inside Container
+2) Access to resources(Network, interfaces, disk ) visualized in this evn.
+3) port mapping should be done to outside world
+
+
+
+Create a  foler with below
+--------------------------
+
+Dockerfile
+-----------
+
+# Use an official Python runtime as a base image
+FROM python:2.7-slim
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+ADD . /app
+
+# Install any needed packages specified in requirements.txt
+RUN pip install -r requirements.txt
+
+# Make port 80 available to the world outside this container
+EXPOSE 80
+
+# Define environment variable
+ENV NAME World
+
+# Run app.py when the container launches
+CMD ["python", "app.py"]
+
+requirements.txt
+-----------------
+Flask
+Redis
+
+app.py
+---------
+from flask import Flask
+from redis import Redis, RedisError
+import os
+import socket
+
+# Connect to Redis
+redis = Redis(host="redis", db=0, socket_connect_timeout=2, socket_timeout=2)
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    try:
+        visits = redis.incr("counter")
+    except RedisError:
+        visits = "<i>cannot connect to Redis, counter disabled</i>"
+
+    html = "<h3>Hello {name}!</h3>" \
+           "<b>Hostname:</b> {hostname}<br/>" \
+           "<b>Visits:</b> {visits}"
+    return html.format(name=os.getenv("NAME", "world"), hostname=socket.gethostname(), visits=visits)
+
+if __name__ == "__main__":
+	app.run(host='0.0.0.0', port=80)
+
+
+build docker image 
+-----------------------
+docker build -t friendlyhello .
+
+finding the docekrImage
+------------------------
+docker images
+
+running the app with port binding
+------------------------------------------
+
+sudo docker run -p 4000:80 friendlyhello
+
+
+run in background with detach
+------------------------------
+
+docker run -d -p 4000:80 friendlyhello
+
+list containers running
+-----------------------
+
+docker ps
+
+stop container
+--------------
+
+docker stop 1fa4ab2cf395
+
+
+Share image
+------------
+
+Registery -> collection of repositories
+Repository -> collection of images
+
+Docker Public repository is free (Docker CLI use this) 
+---------------------------------------------------------
+
+on CLI
+-----
+
+docker login
+
+tag the image
+---------------
+
+docker tag friendlyhello john/get-started:part1
+docker images
+
+docker push dim912/get-started:part1
+
+Run on any server
+------------------
+
+docker run -p 4000:80 dim912/get-started:part1
+
+//commands
+
+docker build -t friendlyname .  # Create image using this directory's Dockerfile
+docker run -p 4000:80 friendlyname  # Run "friendlyname" mapping port 4000 to 80
+docker run -d -p 4000:80 friendlyname         # Same thing, but in detached mode
+docker ps                                 # See a list of all running containers
+docker stop <hash>                     # Gracefully stop the specified container
+docker ps -a           # See a list of all containers, even the ones not running
+docker kill <hash>                   # Force shutdown of the specified container
+docker rm <hash>              # Remove the specified container from this machine
+docker rm $(docker ps -a -q)           # Remove all containers from this machine
+docker images -a                               # Show all images on this machine
+docker rmi <imagename>            # Remove the specified image from this machine
+docker rmi $(docker images -q)             # Remove all images from this machine
+docker login             # Log in this CLI session using your Docker credentials
+docker tag <image> username/repository:tag  # Tag <image> for upload to registry
+docker push username/repository:tag            # Upload tagged image to registry
+docker run username/repository:tag                   # Run image from a registry
+
+
+
+Docker Services
+---------------
+
+
+
+
+
+

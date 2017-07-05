@@ -36,4 +36,21 @@ list repos
 
  install Nodejs on linux(CentOs)
  ---------------------------------
- 
+
+#download the sourcecode from nodejs website
+ wget  https://nodejs.org/dist/v6.11.0/node-v6.11.0.tar.gz
+
+ tar xvf node-v0.12.0.tar.gz
+
+cd node-v*
+
+sudo yum install gcc gcc-c++
+
+./configure
+make
+
+sudo make install
+
+node --version
+
+

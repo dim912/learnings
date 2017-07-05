@@ -33,3 +33,7 @@ Yum
 list repos
 
  yum repolist
+
+ install Nodejs on linux(CentOs)
+ ---------------------------------
+ 

@@ -191,11 +191,18 @@ docker run username/repository:tag                   # Run image from a registry
 
 
 
-Docker Services
----------------
+#!/bin/bash
+# Delete all containers
+ docker rm $(docker ps -a -q)
+# Delete all images
+docker rmi $(docker images -q)
+
+
+start docker container
+
+docker start
 
 
 
-
-
-
+Ruan a ubuntu container
+docker run -i -t ubuntu /bin/bash

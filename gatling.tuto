@@ -1,0 +1,12 @@
+#Akka based load generation which has enabled assertions also.
+
+#user scearios can be writtern
+    Ex : call API1 with hear x,y,z . Then call API2.
+
+# loading scenarios can be written separatly
+Ex : rampup 100 users within 10 s.
+    50 users atonce
+
+    then user scearios can be passed to loading scenarios to generate the load
+
+Can be integrated with Jenkin => a paid version is required

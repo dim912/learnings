@@ -1,0 +1,52 @@
+Akka( Implementation of Actor model)
+----
+
+scalable, resilient
+=> can span processors cores networks
+=> cope with environmnet where components cash witohut responding, message lots etc.
+=> multi threaded behaviour without knowing low level concurrency (atamoics or locks)
+=> Transparent remote communication. Cluster, higj-avilable-elastic, scale in/out on demand
+
+Actor Model => Recognize code in terms of communication. like a peple in a large organization.
+=> model the world as stateful entities, communicating each other by explicit message passing.
+    => actors communicate over asynchronouse messageing instead of method calls, below can be done.
+    => manage their own stateful
+    => when responding 
+            => create another(child) actors
+            => send messages to other actiors
+            => stop(child) acotrs or themselve
+
+What is solved by acotrs
+-------------------------
+  
+  => common OOP does not utilize the modern CPU archetecture (cache lines which are local to CPU)
+  => sharing cache with other CUPs is an expensive task
+  => making all varibale volatile is also expensive(because then we don not use CPU cache lines)
+  => So needed a modle to ensure encapsulation and utilize cache lines
+
+  
+  => actors 
+        => Actors react to messages same way as objects
+        => Respond incomming messages sequentially, one at a time
+        => work indepdendently from the message sender
+        => Different actors work concurrently => so that actor system can process messages simulataneous as many processors avilable in system
+        => No need to use thread locks since one actor process one message at a time
+
+        => Dispathcer holds actors, threads and messages => when resosurcs are avilable and messages are to be processes
+                => dispathcer activates. It takes appropriate actor, and wrap its receive method on a runnable and pass it to a thread
+                => so dispatcher is like a task schedular for a OS.
+                => this is the dispatcher pattern in actor system context
+        => So in acotrs, a given task is not executed in a Single thread, like in OOP.
+        => there is no shared callStak. So error handling is different.
+                => If any error happens at processing => it should be notified to the caller. Then caller can handle it.
+                => In Akka, actors creates another actors(child) like in procssors in a OS. So when an actor fails parent is notified. then parent can handle it.
+                => if parent actor is stopped => all childs are also stopped.
+                => parent actors can restart child actors.
+                => child actors never go sildently dead.
+                
+
+
+                
+
+
+

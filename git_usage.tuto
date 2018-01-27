@@ -109,7 +109,7 @@ git diff --name-only origin/master origin/dev
 
 git cloning a branch
 ---------------------
-git clone -b dev https://git.equinix.com/equinix/GPP.git
+git clone -b dev https://gitServer:port/projectURL
 
 Adding Two remote repositories
 -------------------------------

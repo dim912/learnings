@@ -1,5 +1,5 @@
-CapsLock::Ctrl
-^h::
+CapsLock::Ctrl  ; map capslock to control
+^h::                 ; capslock with h is mapped to down
 SendInput {Left}
 
 return
@@ -16,7 +16,5 @@ return
 
 ^l::
 SendInput {Right}
-
-
 
 return

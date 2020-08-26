@@ -46,6 +46,7 @@ cd node-v*
 
 sudo yum install gcc gcc-c++
 
+
 ./configure
 make
 
@@ -56,6 +57,18 @@ node --version
 #install google chrome on centOS command line
 
 https://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/
+
+
+
+
+--disbale ssh access for root user
+
+vim /etc/ssh/sshd_config
+
+#PermitRootLogin yes
+PermitRootLogin without-password
+
+systemctl reload sshd.service
 
 
 

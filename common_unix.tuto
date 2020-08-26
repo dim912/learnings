@@ -63,6 +63,9 @@ https://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/
 
 --disbale ssh access for root user
 
+1) add public key into /root/.ssh/authorized_keys  (then the its private key can be used to establish ssh connection)
+
+
 vim /etc/ssh/sshd_config
 
 #PermitRootLogin yes

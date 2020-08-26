@@ -67,6 +67,9 @@ vim /etc/ssh/sshd_config
 
 #PermitRootLogin yes
 PermitRootLogin without-password
+#to stop all uers login with password
+#PasswordAuthentication yes
+PasswordAuthentication no
 
 systemctl reload sshd.service
 
